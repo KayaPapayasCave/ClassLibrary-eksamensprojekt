@@ -6,42 +6,68 @@ namespace NoiseRepositoryTests
     public sealed class NoiseRepositoryTests
     {
         [TestMethod]
-        public void HighNoiseAlert_Success()
+        public void GetAllNoises_Success()
         {
             // Arrange
             INoiseRepository repo = new NoiseRepository();
 
             // Act
-            repo.Noise();
+            List<Noise> noises = repo.GetAll();
 
             // Assert
-            Assert.Fail();
+            Assert.AreNotEqual(0, noises.Count);
         }
 
         [TestMethod]
-        public void MediumNoiseMessage_Success()
+        public void GetNoiseById_Success()
         {
             // Arrange
             INoiseRepository repo = new NoiseRepository();
 
             // Act
-            repo.Noise();
+            Noise? noise = repo.GetById(0);
 
             // Assert
-            Assert.Fail();
+            Assert.IsNotNull(noise);
         }
 
         [TestMethod]
-        public void LowNoiseMessage_Success()
+        public void AddNoise_Success()
         {
             // Arrange
             INoiseRepository repo = new NoiseRepository();
 
             // Act
-            repo.Noise();
+            Noise? noise = repo.AddNoise(new Noise());
 
             // Assert
-            Assert.Fail();
+            Assert.IsNotNull(noise);
+        }
+
+        [TestMethod]
+        public void DeleteNoise_Success()
+        {
+            // Arrange
+            INoiseRepository repo = new NoiseRepository();
+
+            // Act
+            Noise? noise = repo.DeleteNoise(0);
+
+            // Assert
+            Assert.IsNotNull(noise);
+        }
+
+        [TestMethod]
+        public void UpdateNoise_Success()
+        {
+            // Arrange
+            INoiseRepository repo = new NoiseRepository();
+
+            // Act
+            Noise? noise = repo.UpdateNoise(new Noise());
+
+            // Assert
+            Assert.IsNotNull(noise);
         }
     }
 }

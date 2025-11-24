@@ -8,6 +8,11 @@ namespace ClassLibrary
 {
     public interface INoiseRepository
     {
-        void Noise();
+        List<Noise> GetAll();
+        Noise? GetById(int id);
+        Noise? GetByRaspberryId(int id);
+        Noise? AddNoise(Noise noise);
+        Noise? DeleteNoise(int id);
+        Noise? UpdateNoise(Noise noise);
     }
 }
