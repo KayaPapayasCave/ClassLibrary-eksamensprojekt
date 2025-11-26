@@ -6,10 +6,38 @@ namespace ClassLibrary
         private List<Noise> _noises;
         public NoiseRepository()
         {
+            DateTime now = DateTime.Now;
+
             _noises = new List<Noise>
             {
-                new Noise(),
-                new Noise(),
+                new Noise
+                {
+                    Id = 0,
+                    RaspberryId = 1,
+                    Decibel = 35,
+                    Time = now
+                },
+                new Noise
+                {
+                    Id = 1,
+                    RaspberryId = 1,
+                    Decibel = 39,
+                    Time = now.AddMinutes(-10)
+                },
+                new Noise
+                {
+                    Id = 2,
+                    RaspberryId = 1,
+                    Decibel = 44,
+                    Time = now.AddMinutes(-20)
+                },
+                new Noise
+                {
+                    Id = 3,
+                    RaspberryId = 1,
+                    Decibel = 40,
+                    Time = now.AddMinutes(-30)
+                },
             };
         }
 
