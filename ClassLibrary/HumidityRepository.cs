@@ -8,34 +8,95 @@ namespace ClassLibrary
 {
     public class HumidityRepository : IHumidityRepository
     {
-        public Humidity? AddHumidity(Humidity humidity)
+        private List<Humidity> _humidities;
+        public HumidityRepository()
         {
-            throw new NotImplementedException();
-        }
+            DateTime now = DateTime.Now;
 
-        public Humidity? DeleteHumidity(int id)
-        {
-            throw new NotImplementedException();
+            _humidities = new List<Humidity>
+                {
+                    new Humidity
+                    {
+                        Id = 0,
+                        RaspberryId = 1,
+                        HumidityPercent = 26,
+                        Time = now
+                    },
+                    new Humidity
+                    {
+                        Id = 1,
+                        RaspberryId = 1,
+                        HumidityPercent = 27,
+                        Time = now.AddMinutes(-10)
+                    },
+                    new Humidity
+                    {
+                        Id = 2,
+                        RaspberryId = 1,
+                        HumidityPercent = 28,
+                        Time = now.AddMinutes(-20)
+                    },
+                    new Humidity
+                    {
+                        Id = 3,
+                        RaspberryId = 1,
+                        HumidityPercent = 29,
+                        Time = now.AddMinutes(-30)
+                    },
+                };
         }
 
         public List<Humidity> GetAll()
         {
-            throw new NotImplementedException();
+            return _humidities;
         }
 
         public Humidity? GetById(int id)
         {
-            throw new NotImplementedException();
+            foreach (var humidity in _humidities)
+            {
+                if (humidity.Id == id)
+                {
+                    return humidity;
+                }
+            }
+            return null;
         }
 
         public Humidity? GetByRaspberryId(int id)
         {
-            throw new NotImplementedException();
+            foreach (var humidity in _humidities)
+            {
+                if (humidity.RaspberryId == id)
+                {
+                    return humidity;
+                }
+            }
+            return null;
+        }
+
+        public Humidity? AddHumidity(Humidity humidity)
+        {
+            _humidities.Add(humidity);
+            return humidity;
+        }
+
+        public Humidity? DeleteHumidity(int id)
+        {
+            Humidity? humidity = GetById(id);
+            if (humidity == null) return null;
+            _humidities.Remove(humidity);
+            return humidity;
         }
 
         public Humidity? UpdateHumidity(Humidity humidity)
         {
-            throw new NotImplementedException();
+            Humidity? oldHumidity = GetById(humidity.Id);
+            if (oldHumidity == null) return null;
+            oldHumidity.RaspberryId = humidity.RaspberryId;
+            oldHumidity.HumidityPercent = humidity.HumidityPercent;
+            oldHumidity.Time = humidity.Time;
+            return humidity;
         }
     }
 }
