@@ -8,34 +8,95 @@ namespace ClassLibrary
 {
     public class TemperatureRepository : ITemperatureRepository
     {
-        public Temperature? AddTemperature(Temperature temperature)
+        private List<Temperature> _temperatures;
+        public TemperatureRepository()
         {
-            throw new NotImplementedException();
-        }
+            DateTime now = DateTime.Now;
 
-        public Temperature? DeleteTemperature(int id)
-        {
-            throw new NotImplementedException();
+            _temperatures = new List<Temperature>
+            {
+                new Temperature
+                {
+                    Id = 0,
+                    RaspberryId = 1,
+                    Celsius = 26,
+                    Time = now
+                },
+                new Temperature
+                {
+                    Id = 1,
+                    RaspberryId = 1,
+                    Celsius = 27,
+                    Time = now.AddMinutes(-10)
+                },
+                new Temperature
+                {
+                    Id = 2,
+                    RaspberryId = 1,
+                    Celsius = 28,
+                    Time = now.AddMinutes(-20)
+                },
+                new Temperature
+                {
+                    Id = 3,
+                    RaspberryId = 1,
+                    Celsius = 29,
+                    Time = now.AddMinutes(-30)
+                },
+            };
         }
 
         public List<Temperature> GetAll()
         {
-            throw new NotImplementedException();
+            return _temperatures;
         }
 
         public Temperature? GetById(int id)
         {
-            throw new NotImplementedException();
+            foreach (var temperature in _temperatures)
+            {
+                if (temperature.Id == id)
+                {
+                    return temperature;
+                }
+            }
+            return null;
         }
 
         public Temperature? GetByRaspberryId(int id)
         {
-            throw new NotImplementedException();
+            foreach (var temperature in _noises)
+            {
+                if (temp.RaspberryId == id)
+                {
+                    return temperature;
+                }
+            }
+            return null;
+        }
+
+        public Temperature? AddTemperature(Temperature temperature)
+        {
+            _temperatures.Add(temperature);
+            return temperature;
+        }
+
+        public Temperature? DeleteTemperature(int id)
+        {
+            Temperature? temperature = GetById(id);
+            if (temperature == null) return null;
+            _temperatures.Remove(noise);
+            return temperature;
         }
 
         public Temperature? UpdateTemperature(Temperature temperature)
         {
-            throw new NotImplementedException();
+            Temperature? oldTemperature = GetById(temperature.Id);
+            if (oldTemperature == null) return null;
+            oldTemperature.RaspberryId = temperature.RaspberryId;
+            oldTemperature.Celsius = temperature.Celsius;
+            oldTemperature.Time = temperature.Time;
+            return temperature;
         }
     }
 }
