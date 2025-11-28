@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary
+namespace ClassLibrary.Models
 {
-    public class Humidity
+    public class Light
     {
         public int Id { get; set; }
         public int RaspberryId { get; set; }
-        public double HumidityPercent { get; set; } // double to catch f.x. 35.81%, 1.9%... etc
+        public double Lumen { get; set; }
         public DateTime Time { get; set; }
-
     }
 }

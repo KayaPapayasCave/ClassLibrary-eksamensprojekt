@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using ClassLibrary.Models;
+using MySql.Data.MySqlClient;
 
 namespace ClassLibrary
 {

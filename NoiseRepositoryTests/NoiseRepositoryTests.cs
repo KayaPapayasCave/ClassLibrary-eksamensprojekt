@@ -1,4 +1,6 @@
 ﻿using ClassLibrary;
+using ClassLibrary.Interfaces;
+using ClassLibrary.Models;
 
 namespace NoiseRepositoryTests
 {
