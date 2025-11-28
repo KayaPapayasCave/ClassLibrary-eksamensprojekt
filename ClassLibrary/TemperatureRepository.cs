@@ -65,9 +65,9 @@ namespace ClassLibrary
 
         public Temperature? GetByRaspberryId(int id)
         {
-            foreach (var temperature in _noises)
+            foreach (var temperature in _temperatures)
             {
-                if (temp.RaspberryId == id)
+                if (temperature.RaspberryId == id)
                 {
                     return temperature;
                 }
@@ -85,7 +85,7 @@ namespace ClassLibrary
         {
             Temperature? temperature = GetById(id);
             if (temperature == null) return null;
-            _temperatures.Remove(noise);
+            _temperatures.Remove(temperature);
             return temperature;
         }
 
