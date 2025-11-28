@@ -27,7 +27,6 @@ namespace ClassLibrary
             }
         }
 
-        // Eksempel: Hent alle temperaturmålinger
         public List<Temperature> GetAllTemperatures()
         {
             var temperatures = new List<Temperature>();
@@ -56,88 +55,89 @@ namespace ClassLibrary
             return temperatures;
         }
 
-        public List<Humidity> GetAllHumidity()
-        {
-            var humidities = new List<Humidity>();
 
-            using (var connection = new MySqlConnection(_connectionString))
-            {
-                connection.Open();
-                string sql = "SELECT * FROM Humidity";
-                using (var cmd = new MySqlCommand(sql, connection))
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        humidities.Add(new Humidity
-                        {
-                            Id = reader.GetInt32("Id"),
-                            RaspberryId = reader.GetInt32("RaspberryId"),
-                            HumidityPercent = reader.GetDouble("HumidityPercent"),
-                            //MeasuredTime = reader.GetTimeSpan("MeasuredTime"),
-                            //MeasuredDate = reader.GetDateTime("MeasuredDate")
-                        });
-                    }
-                }
-            }
+        //public List<Humidity> GetAllHumidity()
+        //{
+        //    var humidities = new List<Humidity>();
 
-            return humidities;
-        }
+        //    using (var connection = new MySqlConnection(_connectionString))
+        //    {
+        //        connection.Open();
+        //        string sql = "SELECT * FROM Humidity";
+        //        using (var cmd = new MySqlCommand(sql, connection))
+        //        using (var reader = cmd.ExecuteReader())
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                humidities.Add(new Humidity
+        //                {
+        //                    Id = reader.GetInt32("Id"),
+        //                    RaspberryId = reader.GetInt32("RaspberryId"),
+        //                    HumidityPercent = reader.GetDouble("HumidityPercent"),
+        //                    //MeasuredTime = reader.GetTimeSpan("MeasuredTime"),
+        //                    //MeasuredDate = reader.GetDateTime("MeasuredDate")
+        //                });
+        //            }
+        //        }
+        //    }
 
-        public List<Noise> GetAllNoise()
-        {
-            var noises = new List<Noise>();
+        //    return humidities;
+        //}
 
-            using (var connection = new MySqlConnection(_connectionString))
-            {
-                connection.Open();
-                string sql = "SELECT * FROM Noise";
-                using (var cmd = new MySqlCommand(sql, connection))
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        noises.Add(new Noise
-                        {
-                            Id = reader.GetInt32("Id"),
-                            RaspberryId = reader.GetInt32("RaspberryId"),
-                            Decibel = reader.GetDouble("Decibel"),
-                            //MeasuredTime = reader.GetTimeSpan("MeasuredTime"),
-                            //MeasuredDate = reader.GetDateTime("MeasuredDate")
-                        });
-                    }
-                }
-            }
+        //public List<Noise> GetAllNoise()
+        //{
+        //    var noises = new List<Noise>();
 
-            return noises;
-        }
+        //    using (var connection = new MySqlConnection(_connectionString))
+        //    {
+        //        connection.Open();
+        //        string sql = "SELECT * FROM Noise";
+        //        using (var cmd = new MySqlCommand(sql, connection))
+        //        using (var reader = cmd.ExecuteReader())
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                noises.Add(new Noise
+        //                {
+        //                    Id = reader.GetInt32("Id"),
+        //                    RaspberryId = reader.GetInt32("RaspberryId"),
+        //                    Decibel = reader.GetDouble("Decibel"),
+        //                    //MeasuredTime = reader.GetTimeSpan("MeasuredTime"),
+        //                    //MeasuredDate = reader.GetDateTime("MeasuredDate")
+        //                });
+        //            }
+        //        }
+        //    }
 
-        public List<Noise> GetAllLight()
-        {
-            var lights = new List<Light>();
+        //    return noises;
+        //}
 
-            using (var connection = new MySqlConnection(_connectionString))
-            {
-                connection.Open();
-                string sql = "SELECT * FROM Light";
-                using (var cmd = new MySqlCommand(sql, connection))
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        lights.Add(new Light
-                        {
-                            Id = reader.GetInt32("Id"),
-                            RaspberryId = reader.GetInt32("RaspberryId"),
-                            Lumen = reader.GetDouble("Lumen"),
-                            //MeasuredTime = reader.GetTimeSpan("MeasuredTime"),
-                            //MeasuredDate = reader.GetDateTime("MeasuredDate")
-                        });
-                    }
-                }
-            }
+        //public List<Light> GetAllLight()
+        //{
+        //    var lights = new List<Light>();
 
-            return lights;
-        }
+        //    using (var connection = new MySqlConnection(_connectionString))
+        //    {
+        //        connection.Open();
+        //        string sql = "SELECT * FROM Light";
+        //        using (var cmd = new MySqlCommand(sql, connection))
+        //        using (var reader = cmd.ExecuteReader())
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                lights.Add(new Light
+        //                {
+        //                    Id = reader.GetInt32("Id"),
+        //                    RaspberryId = reader.GetInt32("RaspberryId"),
+        //                    Lumen = reader.GetDouble("Lumen"),
+        //                    //MeasuredTime = reader.GetTimeSpan("MeasuredTime"),
+        //                    //MeasuredDate = reader.GetDateTime("MeasuredDate")
+        //                });
+        //            }
+        //        }
+        //    }
+
+        //    return lights;
+        //}
     }
 }
