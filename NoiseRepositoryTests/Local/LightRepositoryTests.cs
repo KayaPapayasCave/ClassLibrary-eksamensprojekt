@@ -1,5 +1,5 @@
 using ClassLibrary;
-namespace RepositoryTests;
+namespace RepositoryTests.Local;
 
 [TestClass]
 public class LightRepositoryTests
