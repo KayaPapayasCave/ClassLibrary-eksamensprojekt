@@ -1,3 +1,4 @@
+using ClassLibrary.Models;
 namespace RepositoryTests;
 
 [TestClass]
