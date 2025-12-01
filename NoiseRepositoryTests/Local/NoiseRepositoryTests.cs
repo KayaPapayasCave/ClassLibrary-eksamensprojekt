@@ -1,8 +1,8 @@
-﻿using ClassLibrary.Services;
-using ClassLibrary.Interfaces;
+using ClassLibrary.Services.Local;
+using ClassLibrary.Interfaces.Local;
 using ClassLibrary.Models;
 
-namespace NoiseRepositoryTests
+namespace RepositoryTests.Local
 {
     [TestClass]
     public sealed class NoiseRepositoryTests

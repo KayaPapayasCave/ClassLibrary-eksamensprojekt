@@ -1,4 +1,4 @@
-﻿using ClassLibrary.Interfaces;
+﻿using ClassLibrary.Interfaces.Local;
 using ClassLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary.Services
+namespace ClassLibrary.Services.Local
 {
     public class TemperatureRepository : ITemperatureRepository
     {

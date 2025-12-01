@@ -13,5 +13,6 @@ namespace ClassLibrary.Models
         public double HumidityPercent { get; set; } // double to catch f.x. 35.81%, 1.9%... etc
         public DateTime Time { get; set; }
 
+
     }
 }

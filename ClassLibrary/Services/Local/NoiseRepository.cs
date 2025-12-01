@@ -1,7 +1,7 @@
-﻿using ClassLibrary.Interfaces;
+﻿using ClassLibrary.Interfaces.Local;
 using ClassLibrary.Models;
 
-namespace ClassLibrary.Services
+namespace ClassLibrary.Services.Local
 {
     public class NoiseRepository : INoiseRepository
     {

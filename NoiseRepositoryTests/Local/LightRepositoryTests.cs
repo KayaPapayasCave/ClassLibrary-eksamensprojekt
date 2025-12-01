@@ -1,13 +1,13 @@
-using ClassLibrary;
-using ClassLibrary.Interfaces;
+using ClassLibrary.Interfaces.Local;
 using ClassLibrary.Models;
-using ClassLibrary.Services;
-namespace RepositoryTests;
+using ClassLibrary.Services.Local;
+namespace RepositoryTests.Local;
 
 [TestClass]
 public class LightRepositoryTests
 {
     [TestMethod]
+    [DataRow()]
     public void GetAllLight_Success()
     {
         // Arrange
