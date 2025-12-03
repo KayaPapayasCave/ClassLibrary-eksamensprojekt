@@ -15,7 +15,7 @@ public class NoiseTests
         // Arrange
         TimeOnly time = TimeOnly.Parse(strTime);
         DateOnly date = DateOnly.Parse(strDate);
-        Noise n = new Noise(id, rasberryId, decibel, time, date);
+        Noise n = new Noise(id, rasberryId, decibel, date, time);
 
         // Act
         string actualTime = n.Time.ToString("HH:mm:ss");

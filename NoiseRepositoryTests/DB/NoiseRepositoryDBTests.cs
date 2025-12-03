@@ -43,7 +43,7 @@ public class NoiseRepositoryDBTests
 
         // Act
         Noise noise = new Noise();
-        noise.Time = DateTime.Now;
+        noise.Time = TimeOnly.FromDateTime(DateTime.Now);
         Noise? addedNoise = await repo.AddNoiseAsync(noise);
 
         // Assert
