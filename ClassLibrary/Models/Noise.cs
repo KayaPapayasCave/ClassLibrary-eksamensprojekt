@@ -11,6 +11,18 @@ namespace ClassLibrary.Models
         public int Id { get; set; }
         public int RaspberryId { get; set; }
         public double Decibel { get; set; }
-        public DateTime Time { get; set; }
+        public TimeOnly Time { get; set; }
+        public DateOnly Date { get; set; }
+
+
+        public Noise(int id, int rId, double decibel, TimeOnly time, DateOnly date)
+        {
+            Id = id;
+            RaspberryId = rId;
+            Decibel = decibel;
+            Date = date;
+            Time = time;
+
+        }
     }
 }

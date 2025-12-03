@@ -11,7 +11,17 @@ namespace ClassLibrary.Models
         public int Id { get; set; }
         public int RaspberryId { get; set; }
         public double Celsius { get; set; }
-        public DateTime Time { get; set; }
+        public TimeOnly Time { get; set; }
+        public DateOnly Date { get; set; }
+
+        public Temperature(int id, int rId, double celsius, DateOnly date, TimeOnly time)
+        {
+            Id = id;
+            RaspberryId = rId;
+            Celsius = celsius;
+            Date = date;
+            Time = time;
+        }
 
         public double Fahrenheit()
         {
