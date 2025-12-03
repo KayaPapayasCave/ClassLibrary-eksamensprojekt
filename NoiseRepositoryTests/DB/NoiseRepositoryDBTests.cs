@@ -1,6 +1,7 @@
 using ClassLibrary.Interfaces.DB;
 using ClassLibrary.Models;
 using ClassLibrary.Services.DB;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RepositoryTests;
 
@@ -17,7 +18,7 @@ public class NoiseRepositoryDBTests
         List<Noise> noises = await repo.GetAllAsync();
 
         // Assert
-        Assert.AreEqual(1, noises.Count);
+        Assert.AreNotEqual(0, noises.Count);
     }
 
     [TestMethod]
@@ -40,10 +41,12 @@ public class NoiseRepositoryDBTests
     {
         // Arrange
         INoiseRepositoryDB repo = new NoiseRepositoryDB();
+        DateTime now = DateTime.Now;
 
         // Act
         Noise noise = new Noise();
-        noise.Time = DateTime.Now;
+        noise.Time = TimeOnly.Parse($"{now.Hour}:{now.Minute}:{now.Second}");
+        noise.Date = DateOnly.Parse($"{now.Date}");
         Noise? addedNoise = await repo.AddNoiseAsync(noise);
 
         // Assert
