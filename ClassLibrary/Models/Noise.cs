@@ -14,7 +14,6 @@ namespace ClassLibrary.Models
         public TimeOnly Time { get; set; }
         public DateOnly Date { get; set; }
 
-
         public Noise(int id, int rId, double decibel, TimeOnly time, DateOnly date)
         {
             Id = id;
