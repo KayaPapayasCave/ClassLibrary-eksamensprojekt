@@ -22,5 +22,10 @@ namespace ClassLibrary.Models
             Date = date;
             Time = time;
         }
+
+        public Humidity()
+        {
+            
+        }
     }
 }

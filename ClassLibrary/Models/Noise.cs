@@ -23,5 +23,10 @@ namespace ClassLibrary.Models
             Time = time;
 
         }
+
+        public Noise()
+        {
+            
+        }
     }
 }
