@@ -23,6 +23,11 @@ namespace ClassLibrary.Models
             Time = time;
         }
 
+        public Temperature()
+        {
+            
+        }
+
         public double Fahrenheit()
         {
             return Celsius*1.8+32;
