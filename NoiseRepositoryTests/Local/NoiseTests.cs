@@ -1,4 +1,5 @@
 using ClassLibrary.Models;
+using System;
 namespace RepositoryTests.Local;
 
 [TestClass]
@@ -9,7 +10,7 @@ public class NoiseTests
     [DataRow(2, 1, 70, "2025-12-01", "10:30:01")]
     [DataRow(3, 1, 55, "2025-12-01", "11:30:19")]
     [DataRow(4, 1, 67.5, "2025-12-01", "18:30:13")]
-    public void CreateNoise(int id, int raspberryid, double decibel, string strTime, string strDate)
+    public void CreateAndReadNoise(int id, int raspberryid, double decibel, string strTime, string strDate)
     {
         // Arrange
         TimeOnly time = TimeOnly.Parse(strTime);
@@ -30,12 +31,15 @@ public class NoiseTests
     }
 
     [TestMethod]
-    public void ReadNoise()
+    [DataRow(1, 1, 60.5, "2025-12-01", "09:30:05")]
+    [DataRow(2, 1, 70, "2025-12-01", "10:30:01")]
+    [DataRow(3, 1, 55, "2025-12-01", "11:30:19")]
+    [DataRow(4, 1, 67.5, "2025-12-01", "18:30:13")]
+    public void UpdateNoise(int id, int raspberryid, double decibel, string strTime, string strDate)
     {
-    }
-    [TestMethod]
-    public void UpdateNoise()
-    {
+        TimeOnly time = TimeOnly.Parse(strTime);
+        DateOnly date = DateOnly.Parse(strDate);
+        Noise n = new Noise(id, raspberryid, decibel, time, date);
     }
     [TestMethod]
     public void DeleteNoise()
