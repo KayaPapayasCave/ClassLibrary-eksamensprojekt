@@ -14,22 +14,21 @@ namespace ClassLibrary.Services.DB
             List<Noise> result = new List<Noise>();
 
             using SqlConnection connection = new SqlConnection(_connectionString);
-            using SqlCommand cmd = new SqlCommand("SELECT Id, RaspberryId, Decibel, Time FROM Noise", connection);
+            using SqlCommand cmd = new SqlCommand("SELECT Id, RaspberryId, Decibel, Date, Time FROM Noise", connection);
 
             await connection.OpenAsync();
 
             using SqlDataReader reader = await cmd.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                result.Add(new Noise
-                { 
-                    Id = reader.GetInt32("Id"),
-                    RaspberryId = reader.GetInt32("RaspberryId"),
-                    Decibel = (double)reader.GetDecimal("Decibel"),
-                    Time = reader.GetDateTime("Time")
-                });
+                result.Add(new Noise(
+                    reader.GetInt32("Id"),
+                    reader.GetInt32("RaspberryId"),
+                    (double)reader.GetDecimal("Decibel"),
+                    TimeOnly.FromDateTime(reader.GetDateTime("Time")),
+                    DateOnly.FromDateTime(reader.GetDateTime("Date"))
+                ));
             }
-
             return result;
         }
 
@@ -38,7 +37,7 @@ namespace ClassLibrary.Services.DB
             Noise? noise = null;
 
             using SqlConnection connection = new SqlConnection(_connectionString);
-            using SqlCommand cmd = new SqlCommand("SELECT Id, RaspberryId, Decibel, Time FROM Noise WHERE Id = @Id", connection);
+            using SqlCommand cmd = new SqlCommand("SELECT Id, RaspberryId, Decibel, Date, Time FROM Noise WHERE Id = @Id", connection);
 
             cmd.Parameters.AddWithValue("@Id", id);
 
@@ -47,21 +46,44 @@ namespace ClassLibrary.Services.DB
             using SqlDataReader reader = await cmd.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                noise = new Noise
-                {
-                    Id = reader.GetInt32("Id"),
-                    RaspberryId = reader.GetInt32("RaspberryId"),
-                    Decibel = (double)reader.GetDecimal("Decibel"),
-                    Time = reader.GetDateTime("Time")
-                };
+                noise = new Noise(
+                    reader.GetInt32("Id"),
+                    reader.GetInt32("RaspberryId"),
+                    (double)reader.GetDecimal("Decibel"),
+                    TimeOnly.FromDateTime(reader.GetDateTime("Time")),
+                    DateOnly.FromDateTime(reader.GetDateTime("Date"))
+                );
             }
-
             return noise;
         }
 
-        public async Task<Noise?> GetByRaspberryIdAsync(int id)
+        public async Task<Noise?> GetByRaspberryIdAsync(int raspberryId)
         {
-            throw new NotImplementedException();
+            Noise? noise = null;
+
+            using SqlConnection connection = new SqlConnection(_connectionString);
+            using SqlCommand cmd = new SqlCommand(
+                "SELECT Id, RaspberryId, Decibel, Date, Time FROM Noise WHERE RaspberryId = @RaspberryId",
+                connection
+            );
+
+            cmd.Parameters.AddWithValue("@RaspberryId", raspberryId);
+
+            await connection.OpenAsync();
+
+            using SqlDataReader reader = await cmd.ExecuteReaderAsync();
+            if (await reader.ReadAsync())
+            {
+                noise = new Noise(
+                    reader.GetInt32("Id"),
+                    reader.GetInt32("RaspberryId"),
+                    (double)reader.GetDecimal("Decibel"),
+                    TimeOnly.FromDateTime(reader.GetDateTime("Time")),
+                    DateOnly.FromDateTime(reader.GetDateTime("Date"))
+                );
+            }
+
+            return noise;
         }
 
         public async Task<Noise?> AddNoiseAsync(Noise noise)
@@ -100,6 +122,21 @@ namespace ClassLibrary.Services.DB
             if (noOfRows == 1) return noise;
 
             return null;
+        }
+        public async Task<int> DeleteOlderThan90DaysAsync()
+        {
+            using SqlConnection connection = new SqlConnection(_connectionString);
+
+            // Delete all records where Date < TODAY - 90 days
+            string sql = @"DELETE FROM Noise 
+                   WHERE Date < DATEADD(day, -90, CAST(GETDATE() AS date))";
+
+            using SqlCommand cmd = new SqlCommand(sql, connection);
+
+            await connection.OpenAsync();
+
+            int rowsAffected = await cmd.ExecuteNonQueryAsync();
+            return rowsAffected;
         }
     }
 }
