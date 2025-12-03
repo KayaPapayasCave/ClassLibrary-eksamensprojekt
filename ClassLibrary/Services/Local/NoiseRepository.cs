@@ -9,7 +9,7 @@ namespace ClassLibrary.Services.Local
         public NoiseRepository()
         {
             DateTime now = DateTime.Now;
-
+            
             _noises = new List<Noise>
             {
                 new Noise
@@ -17,28 +17,33 @@ namespace ClassLibrary.Services.Local
                     Id = 0,
                     RaspberryId = 1,
                     Decibel = 35,
-                    Time = now
+                    Time = TimeOnly.Parse($"{now.Hour}:{now.Minute}:{now.Second}"),
+                    Date = DateOnly.Parse($"{now.Date}")
+
                 },
                 new Noise
                 {
                     Id = 1,
                     RaspberryId = 1,
                     Decibel = 39,
-                    Time = now.AddMinutes(-10)
+                    Time = TimeOnly.Parse($"{now.Hour}:{now.Minute-10}:{now.Second}"),
+                    Date = DateOnly.Parse($"{now.Date}")
                 },
                 new Noise
                 {
                     Id = 2,
                     RaspberryId = 1,
                     Decibel = 44,
-                    Time = now.AddMinutes(-20)
+                    Time = TimeOnly.Parse($"{now.Hour}:{now.Minute-20}:{now.Second}"),
+                    Date = DateOnly.Parse($"{now.Date}")
                 },
                 new Noise
                 {
                     Id = 3,
                     RaspberryId = 1,
                     Decibel = 40,
-                    Time = now.AddMinutes(-30)
+                    Time = TimeOnly.Parse($"{now.Hour}:{now.Minute-30}:{now.Second}"),
+                    Date = DateOnly.Parse($"{now.Date}")
                 },
             };
         }

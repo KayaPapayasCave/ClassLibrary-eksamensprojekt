@@ -22,28 +22,32 @@ namespace ClassLibrary.Services.Local
                         Id = 0,
                         RaspberryId = 1,
                         HumidityPercent = 26,
-                        Time = now
+                        Time = TimeOnly.Parse($"{now.Hour}:{now.Minute}:{now.Second}"),
+                        Date = DateOnly.Parse($"{now.Date}")
                     },
                     new Humidity
                     {
                         Id = 1,
                         RaspberryId = 1,
                         HumidityPercent = 27,
-                        Time = now.AddMinutes(-10)
+                        Time = TimeOnly.Parse($"{now.Hour}:{now.Minute-10}:{now.Second}"),
+                        Date = DateOnly.Parse($"{now.Date}")
                     },
                     new Humidity
                     {
                         Id = 2,
                         RaspberryId = 1,
                         HumidityPercent = 28,
-                        Time = now.AddMinutes(-20)
+                        Time = TimeOnly.Parse($"{now.Hour}:{now.Minute-20}:{now.Second}"),
+                        Date = DateOnly.Parse($"{now.Date}")
                     },
                     new Humidity
                     {
                         Id = 3,
                         RaspberryId = 1,
                         HumidityPercent = 29,
-                        Time = now.AddMinutes(-30)
+                        Time = TimeOnly.Parse($"{now.Hour}:{now.Minute-30}:{now.Second}"),
+                        Date = DateOnly.Parse($"{now.Date}")
                     },
                 };
         }
