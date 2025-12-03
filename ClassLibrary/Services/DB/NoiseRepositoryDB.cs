@@ -89,15 +89,16 @@ namespace ClassLibrary.Services.DB
         public async Task<Noise?> AddNoiseAsync(Noise noise)
         {
             using SqlConnection connection = new SqlConnection(_connectionString);
-            using SqlCommand cmd = new SqlCommand("INSERT INTO Noise (RaspberryId, Decibel, Time) OUTPUT INSERTED.Id VALUES (@RaspberryId, @Decibel, @Time)", connection);
+            using SqlCommand cmd = new SqlCommand("INSERT INTO Noise (RaspberryId, Decibel, Time) OUTPUT INSERTED.Id VALUES (@RaspberryId, @Decibel, @Date,  @Time)", connection);
 
             await connection.OpenAsync();
 
             cmd.Parameters.AddWithValue("@RaspberryId", noise.RaspberryId);
             cmd.Parameters.AddWithValue("@Decibel", noise.Decibel);
+            cmd.Parameters.AddWithValue("@Date", noise.Date);
             cmd.Parameters.AddWithValue("@Time", noise.Time);
 
-            object? id = await cmd.ExecuteScalarAsync(); // Tries to retrieve the id the new board got from the database.
+            object? id = await cmd.ExecuteScalarAsync();
 
             if (id == null) return null;
 
@@ -127,7 +128,6 @@ namespace ClassLibrary.Services.DB
         {
             using SqlConnection connection = new SqlConnection(_connectionString);
 
-            // Delete all records where Date < TODAY - 90 days
             string sql = @"DELETE FROM Noise 
                    WHERE Date < DATEADD(day, -90, CAST(GETDATE() AS date))";
 
