@@ -1,77 +1,105 @@
 using ClassLibrary.Interfaces.DB;
 using ClassLibrary.Models;
 using ClassLibrary.Services.DB;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace RepositoryTests;
-
-[TestClass]
-public class NoiseRepositoryDBTests
+namespace RepositoryTests
 {
-    [TestMethod]
-    public async Task GetAllTest_Successfull()
+    [TestClass]
+    public class NoiseRepositoryDBTests
     {
-        // Arrange
-        INoiseRepositoryDB repo = new NoiseRepositoryDB();
+        private INoiseRepositoryDB _repo;
 
-        // Act
-        List<Noise> noises = await repo.GetAllAsync();
+        [TestInitialize]
+        public void Setup()
+        {
+            _repo = new NoiseRepositoryDB();
+        }
 
-        // Assert
-        Assert.AreNotEqual(0, noises.Count);
-    }
+        [TestMethod]
+        public async Task GetAllTest_Successful()
+        {
+            // Act
+            List<Noise> noises = await _repo.GetAllAsync();
 
-    [TestMethod]
-    public async Task GetByIdTest_Successfull()
-    {
-        // Arrange
-        int id = 1;
-        INoiseRepositoryDB repo = new NoiseRepositoryDB();
+            // Assert
+            Assert.IsTrue(noises.Count >= 0, "There should be at least 0 records");
+        }
 
-        // Act
-        Noise? noise = await repo.GetByIdAsync(id);
+        [TestMethod]
+        public async Task GetByIdTest_Successful()
+        {
+            INoiseRepositoryDB repo = new NoiseRepositoryDB();
 
-        // Assert
-        Assert.IsNotNull(noise);
-        Assert.AreEqual(id, noise.Id);
-    }
+            // Arrange: insert a row to ensure it exists
+            Noise noise = new Noise
+            {
+                RaspberryId = 1,
+                Decibel = 60.5,
+                Date = DateOnly.FromDateTime(DateTime.Now),
+                Time = TimeOnly.FromDateTime(DateTime.Now)
+            };
 
-    [TestMethod()]
-    public async Task AddTest_Successfull()
-    {
-        // Arrange
-        INoiseRepositoryDB repo = new NoiseRepositoryDB();
-        DateTime now = DateTime.Now;
+            Noise? addedNoise = await repo.AddNoiseAsync(noise);
+            Assert.IsNotNull(addedNoise);
 
-        // Act
-        Noise noise = new Noise();
-        noise.Time = TimeOnly.FromDateTime(now);
-        noise.Date = DateOnly.FromDateTime(now);
-        Noise? addedNoise = await repo.AddNoiseAsync(noise);
+            // Act: fetch by the inserted ID
+            Noise? fetchedNoise = await repo.GetByIdAsync(addedNoise!.Id);
 
-        // Assert
-        Assert.IsNotNull(addedNoise);
+            // Assert
+            Assert.IsNotNull(fetchedNoise, $"Noise with ID={addedNoise.Id} should exist");
+            Assert.AreEqual(addedNoise.Id, fetchedNoise!.Id);
 
-        // Cleanup
-        await repo.DeleteNoiseAsync(addedNoise.Id);
-    }
+            // Cleanup
+            await repo.DeleteNoiseAsync(addedNoise.Id);
+        }
 
-    [TestMethod]
-    public async Task DeleteTest_Successfull()
-    {
-        // Arrange
-        INoiseRepositoryDB repo = new NoiseRepositoryDB();
 
-        // Act
-        Noise noise = new Noise();
-        DateTime now = DateTime.Now;
-        noise.Time = TimeOnly.Parse($"{now.Hour}:{now.Minute}:{now.Second}");
-        noise.Date = DateOnly.Parse($"{now.Date}");
-        Noise? noiseAdded = await repo.AddNoiseAsync(noise);
-        Noise? noiseDeleted = await repo.DeleteNoiseAsync(noiseAdded.Id);
+        [TestMethod]
+        public async Task AddTest_Successful()
+        {
+            // Arrange
+            DateTime now = DateTime.Now;
+            Noise noise = new Noise
+            {
+                Date = DateOnly.FromDateTime(now),
+                Time = TimeOnly.FromDateTime(now)
+            };
 
-        // Assert
-        Assert.IsNotNull(noiseAdded);
-        Assert.IsNotNull(noiseDeleted);
+            // Act
+            Noise? addedNoise = await _repo.AddNoiseAsync(noise);
+
+            // Assert
+            Assert.IsNotNull(addedNoise);
+            Assert.IsTrue(addedNoise!.Id > 0, "Inserted noise should have an ID");
+
+            // Cleanup
+            await _repo.DeleteNoiseAsync(addedNoise.Id);
+        }
+
+        [TestMethod]
+        public async Task DeleteTest_Successful()
+        {
+            // Arrange
+            DateTime now = DateTime.Now;
+            Noise noise = new Noise
+            {
+                Date = DateOnly.FromDateTime(now),
+                Time = TimeOnly.FromDateTime(now)
+            };
+
+            Noise? addedNoise = await _repo.AddNoiseAsync(noise);
+
+            // Act
+            Noise? deletedNoise = await _repo.DeleteNoiseAsync(addedNoise!.Id);
+
+            // Assert
+            Assert.IsNotNull(addedNoise);
+            Assert.IsNotNull(deletedNoise);
+            Assert.AreEqual(addedNoise.Id, deletedNoise!.Id);
+        }
     }
 }

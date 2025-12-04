@@ -9,5 +9,6 @@ namespace ClassLibrary.Interfaces.DB
         Task<Light?> GetByRaspberryIdAsync(int id);
         Task<Light?> AddLightAsync(Light light);
         Task<Light?> DeleteLightAsync(int id);
+        Task<int> DeleteOlderThan90DaysAsync();
     }
 }

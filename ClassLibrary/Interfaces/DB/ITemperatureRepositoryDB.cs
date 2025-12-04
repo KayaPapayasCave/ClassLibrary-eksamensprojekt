@@ -9,5 +9,6 @@ namespace ClassLibrary.Interfaces.DB
         Task<Temperature?> GetByRaspberryIdAsync(int id);
         Task<Temperature?> AddTemperatureAsync(Temperature temperature);
         Task<Temperature?> DeleteTemperatureAsync(int id);
+        Task<int> DeleteOlderThan90DaysAsync();
     }
 }

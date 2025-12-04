@@ -9,5 +9,6 @@ namespace ClassLibrary.Interfaces.DB
         Task<Noise?> GetByRaspberryIdAsync(int id);
         Task<Noise?> AddNoiseAsync(Noise noise);
         Task<Noise?> DeleteNoiseAsync(int id);
+        Task<int> DeleteOlderThan90DaysAsync();
     }
 }

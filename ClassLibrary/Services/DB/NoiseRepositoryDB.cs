@@ -89,19 +89,25 @@ namespace ClassLibrary.Services.DB
         public async Task<Noise?> AddNoiseAsync(Noise noise)
         {
             using SqlConnection connection = new SqlConnection(_connectionString);
-            using SqlCommand cmd = new SqlCommand("INSERT INTO Noise (RaspberryId, Decibel, Time) OUTPUT INSERTED.Id VALUES (@RaspberryId, @Decibel, @Date,  @Time)", connection);
 
-            await connection.OpenAsync();
+            string sql = "INSERT INTO Noise (RaspberryId, Decibel, Date, Time) " +
+                         "OUTPUT INSERTED.Id " +
+                         "VALUES (@RaspberryId, @Decibel, @Date, @Time)";
+
+            using SqlCommand cmd = new SqlCommand(sql, connection);
 
             cmd.Parameters.AddWithValue("@RaspberryId", noise.RaspberryId);
             cmd.Parameters.AddWithValue("@Decibel", noise.Decibel);
             cmd.Parameters.AddWithValue("@Date", noise.Date);
             cmd.Parameters.AddWithValue("@Time", noise.Time);
 
+            await connection.OpenAsync();
+
             object? id = await cmd.ExecuteScalarAsync();
 
             if (id == null) return null;
 
+            noise.Id = (int)id;
             return noise;
         }
 
