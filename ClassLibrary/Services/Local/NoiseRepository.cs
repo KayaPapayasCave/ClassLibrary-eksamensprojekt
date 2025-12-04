@@ -17,8 +17,8 @@ namespace ClassLibrary.Services.Local
                     Id = 0,
                     RaspberryId = 1,
                     Decibel = 35,
-                    Time = TimeOnly.Parse($"{now.Hour}:{now.Minute}:{now.Second}"),
-                    Date = DateOnly.Parse($"{now.Date}")
+                    Time = TimeOnly.FromDateTime(now),
+                    Date = DateOnly.FromDateTime(now)
 
                 },
                 new Noise
@@ -26,24 +26,24 @@ namespace ClassLibrary.Services.Local
                     Id = 1,
                     RaspberryId = 1,
                     Decibel = 39,
-                    Time = TimeOnly.Parse($"{now.Hour}:{now.Minute-10}:{now.Second}"),
-                    Date = DateOnly.Parse($"{now.Date}")
+                    Time = TimeOnly.FromDateTime(now),
+                    Date = DateOnly.FromDateTime(now)
                 },
                 new Noise
                 {
                     Id = 2,
                     RaspberryId = 1,
                     Decibel = 44,
-                    Time = TimeOnly.Parse($"{now.Hour}:{now.Minute-20}:{now.Second}"),
-                    Date = DateOnly.Parse($"{now.Date}")
+                    Time = TimeOnly.FromDateTime(now),
+                    Date = DateOnly.FromDateTime(now)
                 },
                 new Noise
                 {
                     Id = 3,
                     RaspberryId = 1,
                     Decibel = 40,
-                    Time = TimeOnly.Parse($"{now.Hour}:{now.Minute-30}:{now.Second}"),
-                    Date = DateOnly.Parse($"{now.Date}")
+                    Time = TimeOnly.FromDateTime(now),
+                    Date = DateOnly.FromDateTime(now)
                 },
             };
         }
