@@ -1,26 +1,36 @@
-﻿using ClassLibrary.Models;
-using MySql.Data.MySqlClient;
+﻿using ClassLibrary.Interfaces.DB;
+using ClassLibrary.Models;
 
 namespace ClassLibrary
 {
     public class DatabaseService
     {
-        private readonly string _connectionString;
+        private readonly ITemperatureRepositoryDB _temperatureRepo;
+        private readonly IHumidityRepositoryDB _humidityRepo;
+        private readonly INoiseRepositoryDB _noiseRepo;
+        private readonly ILightRepositoryDB _lightRepo;
 
-        public DatabaseService(string connectionString)
+        public DatabaseService(
+            ITemperatureRepositoryDB temperatureRepo,
+            IHumidityRepositoryDB humidityRepo,
+            INoiseRepositoryDB noiseRepo,
+            ILightRepositoryDB lightRepo
+        )
         {
-            _connectionString = connectionString;
+            _temperatureRepo = temperatureRepo;
+            _humidityRepo = humidityRepo;
+            _noiseRepo = noiseRepo;
+            _lightRepo = lightRepo;
         }
 
-        public bool TestConnection()
+        // ✅ Test that the database is reachable using one repository
+        public async Task<bool> TestConnectionAsync()
         {
             try
             {
-                using (var connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    return true;
-                }
+                // Attempt to fetch a single record from Temperature as a lightweight test
+                var temps = await _temperatureRepo.GetAllAsync();
+                return temps != null;
             }
             catch
             {
@@ -28,117 +38,25 @@ namespace ClassLibrary
             }
         }
 
-        public List<Temperature> GetAllTemperatures()
+        // ✅ Expose repository data as lists
+        public async Task<List<Temperature>> GetAllTemperaturesAsync()
         {
-            var temperatures = new List<Temperature>();
-
-            using (var connection = new MySqlConnection(_connectionString))
-            {
-                connection.Open();
-                string sql = "SELECT * FROM Temperature";
-                using (var cmd = new MySqlCommand(sql, connection))
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        temperatures.Add(new Temperature
-                        {
-                            Id = reader.GetInt32("Id"),
-                            RaspberryId = reader.GetInt32("RaspberryId"),
-                            Celsius = reader.GetDouble("Celsius"),
-                            //MeasuredTime = reader.GetTimeSpan("MeasuredTime"),
-                            //MeasuredDate = reader.GetDateTime("MeasuredDate")
-                        });
-                    }
-                }
-            }
-
-            return temperatures;
+            return await _temperatureRepo.GetAllAsync();
         }
 
+        public async Task<List<Humidity>> GetAllHumidityAsync()
+        {
+            return await _humidityRepo.GetAllAsync();
+        }
 
-        //public List<Humidity> GetAllHumidity()
-        //{
-        //    var humidities = new List<Humidity>();
+        public async Task<List<Noise>> GetAllNoiseAsync()
+        {
+            return await _noiseRepo.GetAllAsync();
+        }
 
-        //    using (var connection = new MySqlConnection(_connectionString))
-        //    {
-        //        connection.Open();
-        //        string sql = "SELECT * FROM Humidity";
-        //        using (var cmd = new MySqlCommand(sql, connection))
-        //        using (var reader = cmd.ExecuteReader())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                humidities.Add(new Humidity
-        //                {
-        //                    Id = reader.GetInt32("Id"),
-        //                    RaspberryId = reader.GetInt32("RaspberryId"),
-        //                    HumidityPercent = reader.GetDouble("HumidityPercent"),
-        //                    //MeasuredTime = reader.GetTimeSpan("MeasuredTime"),
-        //                    //MeasuredDate = reader.GetDateTime("MeasuredDate")
-        //                });
-        //            }
-        //        }
-        //    }
-
-        //    return humidities;
-        //}
-
-        //public List<Noise> GetAllNoise()
-        //{
-        //    var noises = new List<Noise>();
-
-        //    using (var connection = new MySqlConnection(_connectionString))
-        //    {
-        //        connection.Open();
-        //        string sql = "SELECT * FROM Noise";
-        //        using (var cmd = new MySqlCommand(sql, connection))
-        //        using (var reader = cmd.ExecuteReader())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                noises.Add(new Noise
-        //                {
-        //                    Id = reader.GetInt32("Id"),
-        //                    RaspberryId = reader.GetInt32("RaspberryId"),
-        //                    Decibel = reader.GetDouble("Decibel"),
-        //                    //MeasuredTime = reader.GetTimeSpan("MeasuredTime"),
-        //                    //MeasuredDate = reader.GetDateTime("MeasuredDate")
-        //                });
-        //            }
-        //        }
-        //    }
-
-        //    return noises;
-        //}
-
-        //public List<Light> GetAllLight()
-        //{
-        //    var lights = new List<Light>();
-
-        //    using (var connection = new MySqlConnection(_connectionString))
-        //    {
-        //        connection.Open();
-        //        string sql = "SELECT * FROM Light";
-        //        using (var cmd = new MySqlCommand(sql, connection))
-        //        using (var reader = cmd.ExecuteReader())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                lights.Add(new Light
-        //                {
-        //                    Id = reader.GetInt32("Id"),
-        //                    RaspberryId = reader.GetInt32("RaspberryId"),
-        //                    Lumen = reader.GetDouble("Lumen"),
-        //                    //MeasuredTime = reader.GetTimeSpan("MeasuredTime"),
-        //                    //MeasuredDate = reader.GetDateTime("MeasuredDate")
-        //                });
-        //            }
-        //        }
-        //    }
-
-        //    return lights;
-        //}
+        public async Task<List<Light>> GetAllLightAsync()
+        {
+            return await _lightRepo.GetAllAsync();
+        }
     }
 }
