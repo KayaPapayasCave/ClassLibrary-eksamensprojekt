@@ -12,7 +12,7 @@ public class LightTests
     [DataRow(1,14,2345.7,"2025-01-21","09:15")]
     [DataRow(1,87,3987.89,"2025-05-28","19:34")]
     [DataRow(1,67,1987.34,"2025-10-16","05:28")]
-    public void TestMethod1(int id, int rasberryId, double lumen, string strDate, string strTime)
+    public void CreateAndReadTest(int id, int rasberryId, double lumen, string strDate, string strTime)
     {
         //arrange
         TimeOnly time = TimeOnly.Parse(strTime);
@@ -20,8 +20,8 @@ public class LightTests
         Light l = new Light(id, rasberryId, lumen,date,time);
 
         //act
-        string actualTime = l.Time.ToString("yyyy-MM-dd");
-        string actualDate = l.Date.ToString("HH:mm:ss");
+        string actualTime = l.Time.ToString("HH:mm");
+        string actualDate = l.Date.ToString("yyyy-MM-dd");
 
         // Assert
         Assert.AreEqual(l.Id, id);
