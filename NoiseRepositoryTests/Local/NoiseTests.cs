@@ -1,5 +1,6 @@
 using ClassLibrary.Models;
 using System;
+using System.Globalization;
 namespace RepositoryTests.Local;
 
 [TestClass]
@@ -18,8 +19,8 @@ public class NoiseTests
         Noise n = new Noise(id, rasberryId, decibel, date, time);
 
         // Act
-        string actualTime = n.Time.ToString("HH:mm:ss");
-        string actualDate = n.Date.ToString("yyyy-MM-dd");
+        string actualDate = n.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        string actualTime = n.Time.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
 
         // Assert
         Assert.AreEqual(n.Id, id);
