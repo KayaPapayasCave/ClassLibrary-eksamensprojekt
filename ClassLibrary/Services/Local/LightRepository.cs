@@ -22,32 +22,32 @@ namespace ClassLibrary.Services.Local
                         Id = 0,
                         RaspberryId = 1,
                         Lumen = 26,
-                        Time = TimeOnly.Parse($"{now.Hour}:{now.Minute}:{now.Second}"),
-                        Date = DateOnly.Parse($"{now.Date}")
+                        Time = TimeOnly.FromDateTime(now),
+                        Date = DateOnly.FromDateTime(now)
                     },
                     new Light
                     {
                         Id = 1,
                         RaspberryId = 1,
                         Lumen = 27,
-                        Time = TimeOnly.Parse($"{now.Hour}:{now.Minute-10}:{now.Second}"),
-                        Date = DateOnly.Parse($"{now.Date}")
+                        Time = TimeOnly.FromDateTime(now),
+                        Date = DateOnly.FromDateTime(now)
                     },
                     new Light
                     {
                         Id = 2,
                         RaspberryId = 1,
                         Lumen = 28,
-                        Time = TimeOnly.Parse($"{now.Hour}:{now.Minute-20}:{now.Second}"),
-                        Date = DateOnly.Parse($"{now.Date}")
+                        Time = TimeOnly.FromDateTime(now),
+                        Date = DateOnly.FromDateTime(now)
                     },
                     new Light
                     {
                         Id = 3,
                         RaspberryId = 1,
                         Lumen = 29,
-                        Time = TimeOnly.Parse($"{now.Hour}:{now.Minute-30}:{now.Second}"),
-                        Date = DateOnly.Parse($"{now.Date}")
+                        Time = TimeOnly.FromDateTime(now),
+                        Date = DateOnly.FromDateTime(now)
                     },
                 };
         }

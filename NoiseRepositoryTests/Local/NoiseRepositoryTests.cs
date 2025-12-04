@@ -8,6 +8,7 @@ namespace RepositoryTests.Local
     public sealed class NoiseRepositoryTests
     {
         [TestMethod]
+        [DataRow()]
         public void GetAllNoises_Success()
         {
             // Arrange
