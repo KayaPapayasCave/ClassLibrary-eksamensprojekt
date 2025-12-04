@@ -1,6 +1,7 @@
 using ClassLibrary.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Globalization;
 
 namespace RepositoryTests;
 
@@ -21,8 +22,8 @@ public class TemperatureTests
         Temperature t = new Temperature(id, raspberryId, celsius, date, time);
 
         // Act
-        string actualDate = t.Date.ToString("yyyy-MM-dd");
-        string actualTime = t.Time.ToString("HH:mm");
+        string actualDate = t.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        string actualTime = t.Time.ToString("HH:mm", CultureInfo.InvariantCulture);
 
         // Assert
         Assert.AreEqual(id, t.Id);
