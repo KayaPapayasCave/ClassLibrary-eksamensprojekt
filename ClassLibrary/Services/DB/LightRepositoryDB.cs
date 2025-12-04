@@ -26,7 +26,7 @@ namespace ClassLibrary.Services.DB
                     reader.GetInt32("RaspberryId"),
                     (double)reader.GetDecimal("Lumen"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
-                    TimeOnly.FromDateTime(reader.GetDateTime("Time"))
+                    TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
                 ));
             }
 
@@ -55,7 +55,7 @@ namespace ClassLibrary.Services.DB
                     reader.GetInt32("RaspberryId"),
                     (double)reader.GetDecimal("Lumen"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
-                    TimeOnly.FromDateTime(reader.GetDateTime("Time"))
+                    TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
                 );
             }
 
@@ -84,7 +84,7 @@ namespace ClassLibrary.Services.DB
                     reader.GetInt32("RaspberryId"),
                     (double)reader.GetDecimal("Lumen"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
-                    TimeOnly.FromDateTime(reader.GetDateTime("Time"))
+                    TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
                 );
             }
 

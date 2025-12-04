@@ -14,7 +14,8 @@ namespace RepositoryTests
         [TestInitialize]
         public void Setup()
         {
-            _repo = new HumidityRepositoryDB();
+            // Use the connection string explicitly to ensure the test DB is used
+            _repo = new HumidityRepositoryDB(Secret.ConnectionString);
         }
 
         [TestMethod]
@@ -24,18 +25,33 @@ namespace RepositoryTests
             List<Humidity> humidities = await _repo.GetAllAsync();
 
             // Assert
+            Assert.IsNotNull(humidities);
             Assert.IsTrue(humidities.Count >= 0, "There should be at least 0 records");
         }
 
         [TestMethod]
         public async Task GetByIdTest_Successful()
         {
+            // Arrange
+            var newHumidity = new Humidity(
+                id: 0,
+                raspberryId: 1,
+                humidityPercent: 50.0,
+                date: DateOnly.FromDateTime(DateTime.Now),
+                time: TimeOnly.FromDateTime(DateTime.Now)
+            );
+
+            Humidity? added = await _repo.AddHumidityAsync(newHumidity);
+
             // Act
-            Humidity? humidity = await _repo.GetByIdAsync(1); // Use a valid ID in your DB
+            Humidity? humidity = await _repo.GetByIdAsync(added!.Id);
 
             // Assert
-            Assert.IsNotNull(humidity, "Humidity with ID=1 should exist");
-            Assert.AreEqual(1, humidity!.Id);
+            Assert.IsNotNull(humidity, "Humidity should exist after being added");
+            Assert.AreEqual(added.Id, humidity!.Id);
+
+            // Cleanup
+            await _repo.DeleteHumidityAsync(added.Id);
         }
 
         [TestMethod]
@@ -43,7 +59,7 @@ namespace RepositoryTests
         {
             // Arrange
             var newHumidity = new Humidity(
-                id: 0, // will be set by DB
+                id: 0,
                 raspberryId: 1,
                 humidityPercent: 55.5,
                 date: DateOnly.FromDateTime(DateTime.Now),

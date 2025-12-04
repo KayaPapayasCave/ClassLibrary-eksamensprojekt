@@ -8,6 +8,14 @@ namespace ClassLibrary.Services.DB
     public class HumidityRepositoryDB : IHumidityRepositoryDB
     {
         private readonly string _connectionString = Secret.ConnectionString;
+        public HumidityRepositoryDB()
+        {
+            _connectionString = Secret.ConnectionString;
+        }
+        public HumidityRepositoryDB(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         public async Task<List<Humidity>> GetAllAsync()
         {
@@ -26,7 +34,7 @@ namespace ClassLibrary.Services.DB
                     reader.GetInt32("RaspberryId"),
                     (double)reader.GetDecimal("HumidityPercent"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
-                    TimeOnly.FromDateTime(reader.GetDateTime("Time"))
+                    TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
                 ));
             }
 
@@ -55,7 +63,7 @@ namespace ClassLibrary.Services.DB
                     reader.GetInt32("RaspberryId"),
                     (double)reader.GetDecimal("HumidityPercent"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
-                    TimeOnly.FromDateTime(reader.GetDateTime("Time"))
+                    TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
                 );
             }
 
@@ -84,7 +92,7 @@ namespace ClassLibrary.Services.DB
                     reader.GetInt32("RaspberryId"),
                     (double)reader.GetDecimal("HumidityPercent"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
-                    TimeOnly.FromDateTime(reader.GetDateTime("Time"))
+                    TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
                 );
             }
 

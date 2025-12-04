@@ -26,7 +26,7 @@ namespace ClassLibrary.Services.DB
                     reader.GetInt32("RaspberryId"),
                     (double)reader.GetDecimal("Decibel"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
-                    TimeOnly.FromDateTime(reader.GetDateTime("Time"))
+                    TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
                 ));
             }
             return result;
@@ -51,7 +51,7 @@ namespace ClassLibrary.Services.DB
                     reader.GetInt32("RaspberryId"),
                     (double)reader.GetDecimal("Decibel"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
-                    TimeOnly.FromDateTime(reader.GetDateTime("Time"))
+                    TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
                 );
             }
             return noise;
@@ -79,7 +79,7 @@ namespace ClassLibrary.Services.DB
                     reader.GetInt32("RaspberryId"),
                     (double)reader.GetDecimal("Decibel"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
-                    TimeOnly.FromDateTime(reader.GetDateTime("Time"))
+                    TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
                 );
             }
 
