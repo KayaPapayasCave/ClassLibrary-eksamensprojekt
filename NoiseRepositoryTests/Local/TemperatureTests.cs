@@ -1,4 +1,5 @@
 using ClassLibrary.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace RepositoryTests;
@@ -7,28 +8,27 @@ namespace RepositoryTests;
 public class TemperatureTests
 {
     [TestMethod]
-    [DataRow(1,65,45.7,"2025-02-15","16:12")]
-    [DataRow(1,80,78.2,"2025-04-24","08:54")]
-    [DataRow(1,56,48.1,"2025-05-27","21:45")]
-    [DataRow(1,67,38.7,"2025-04.28","11:54")]
-    [DataRow(1,92,33.5,"2025-11-05","17:54")]
-    public void TestMethod1(int id, int rasberryId, double celsius, string strDate, string strTime)
+    [DataRow(1, 65, 45.7, "2025-02-15", "16:12")]
+    [DataRow(1, 80, 78.2, "2025-04-24", "08:54")]
+    [DataRow(1, 56, 48.1, "2025-05-27", "21:45")]
+    [DataRow(1, 67, 38.7, "2025-04-28", "11:54")]
+    [DataRow(1, 92, 33.5, "2025-11-05", "17:54")]
+    public void TestMethod1(int id, int raspberryId, double celsius, string strDate, string strTime)
     {
-        //arrange
-        TimeOnly time = TimeOnly.Parse(strTime);
+        // Arrange
         DateOnly date = DateOnly.Parse(strDate);
-        Temperature t = new Temperature(id,rasberryId,celsius, date,time);
+        TimeOnly time = TimeOnly.Parse(strTime);
+        Temperature t = new Temperature(id, raspberryId, celsius, date, time);
 
-        //act
-        string actualTime = t.Time.ToString("yyyy-MM-dd");
-        string actualDate = t.Date.ToString("HH:mm:ss");
+        // Act
+        string actualDate = t.Date.ToString("yyyy-MM-dd");
+        string actualTime = t.Time.ToString("HH:mm");
 
         // Assert
-        Assert.AreEqual(t.Id, id);
-        Assert.AreEqual(t.RaspberryId, rasberryId);
-        Assert.AreEqual(t.Celsius, celsius);
-        Assert.AreEqual(actualTime, strTime);
-        Assert.AreEqual(actualDate, strDate);
-        
+        Assert.AreEqual(id, t.Id);
+        Assert.AreEqual(raspberryId, t.RaspberryId);
+        Assert.AreEqual(celsius, t.Celsius);
+        Assert.AreEqual(strDate, actualDate);
+        Assert.AreEqual(strTime, actualTime);
     }
 }

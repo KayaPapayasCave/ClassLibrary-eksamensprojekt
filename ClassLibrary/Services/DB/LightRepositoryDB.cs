@@ -108,7 +108,7 @@ namespace ClassLibrary.Services.DB
 
             object? id = await cmd.ExecuteScalarAsync();
             if (id == null) return null;
-
+            light.Id = (int)id;
             return light;
         }
 

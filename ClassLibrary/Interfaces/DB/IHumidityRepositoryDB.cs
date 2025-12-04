@@ -9,5 +9,6 @@ namespace ClassLibrary.Interfaces.DB
         Task<Humidity?> GetByRaspberryIdAsync(int id);
         Task<Humidity?> AddHumidityAsync(Humidity humidity);
         Task<Humidity?> DeleteHumidityAsync(int id);
+        Task<int> DeleteOlderThan90DaysAsync();
     }
 }
