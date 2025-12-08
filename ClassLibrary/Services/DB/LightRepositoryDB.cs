@@ -5,10 +5,24 @@ using System.Data;
 
 namespace ClassLibrary.Services.DB
 {
+    /// <summary>
+    /// A repository class for managing Light data in a SQL database.
+    /// </summary>
     public class LightRepositoryDB : ILightRepositoryDB
     {
+        /// <summary>
+        /// Represents the connection string used to establish a connection to the database.    
+        /// </summary>
+        /// <remarks>This field is read-only and initialized with a value from a secure source. It is
+        /// intended for internal use only and should not be exposed publicly.</remarks>
         private readonly string _connectionString = Secret.ConnectionString;
 
+        /// <summary>
+        /// Asynchronously retrieves all light sensor data from the database.
+        /// </summary>
+        /// <remarks>This method executes a SQL query to fetch all records from the "Light" table. It returns a list
+        /// with all light sensor data, each represented as a Light object.
+        /// The method returns an empty list if no records are found.</remarks>
         public async Task<List<Light>> GetAllAsync()
         {
             List<Light> result = new List<Light>();
@@ -33,6 +47,11 @@ namespace ClassLibrary.Services.DB
             return result;
         }
 
+        /// <summary>
+        /// Asynchronously retrieves a Light object by its unique identifier.
+        /// </summary>
+        /// <remarks>This method queries the database for a light record with the specified identifier. 
+        /// If no matching record is found, the method returns a null value.</remarks>
         public async Task<Light?> GetByIdAsync(int id)
         {
             Light? light = null;
@@ -62,6 +81,12 @@ namespace ClassLibrary.Services.DB
             return light;
         }
 
+        /// <summary>
+        /// Asynchronously retrieves the most recent Light object for a given RaspberryId.
+        /// </summary>
+        /// <returns> The method queries the database for the most recent light record associated with
+        /// the given Raspberry Pi device, ordered by date and time in descending order. If no record exists for the
+        /// specified RaspberryId, the method returns a null value.</returns>
         public async Task<Light?> GetByRaspberryIdAsync(int raspberryId)
         {
             Light? light = null;
@@ -91,6 +116,13 @@ namespace ClassLibrary.Services.DB
             return light;
         }
 
+        /// <summary>
+        /// Asynchronously adds a new light measurement to the database and returns the added light object with its
+        /// generated identifier.
+        /// </summary>
+        /// <remarks>This method inserts a new record into the "Light" table in the database. The light parameter must include valid values
+        /// for the Light.RaspberryId,Light.Lumen, Light.Date, and Light.Time properties.
+        /// If the value is invalid it returns a null value </remarks>
         public async Task<Light?> AddLightAsync(Light light)
         {
             using SqlConnection connection = new SqlConnection(_connectionString);
@@ -112,6 +144,12 @@ namespace ClassLibrary.Services.DB
             return light;
         }
 
+        /// <summary>
+        /// Deletes the light with the specified identifier from the database.
+        /// </summary>
+        /// <remarks>This method retrieves the light by its identifier before attempting to delete it. If
+        /// the light does not exist, the method returns null without performing any deletion. If the
+        /// deletion is successful, the method returns the deleted light object.</remarks>
         public async Task<Light?> DeleteLightAsync(int id)
         {
             Light? light = await GetByIdAsync(id);
@@ -130,6 +168,11 @@ namespace ClassLibrary.Services.DB
             return null;
         }
 
+        /// <summary>
+        /// Deletes records from the "Light" table that are older than 90 days.
+        /// </summary>
+        /// <remarks>This method removes all rows where the "Date" column is earlier than 90 days from the
+        /// current date. The operation is performed asynchronously and returns the number of rows deleted.</remarks>
         public async Task<int> DeleteOlderThan90DaysAsync()
         {
             using SqlConnection connection = new SqlConnection(_connectionString);
