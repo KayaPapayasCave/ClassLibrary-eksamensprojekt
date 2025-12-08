@@ -11,7 +11,7 @@ namespace ClassLibrary.Interfaces.Local
     {
         List<Temperature> GetAll();
         Temperature? GetById(int id);
-        Temperature? GetByRaspberryId(int id);
+        List<Temperature> GetByRaspberryId(int id);
         Temperature? AddTemperature(Temperature temperature);
         Temperature? DeleteTemperature(int id);
         Temperature? UpdateTemperature(Temperature temperature);

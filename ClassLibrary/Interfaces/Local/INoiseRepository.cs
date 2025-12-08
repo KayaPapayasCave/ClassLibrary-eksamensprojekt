@@ -11,7 +11,7 @@ namespace ClassLibrary.Interfaces.Local
     {
         List<Noise> GetAll();
         Noise? GetById(int id);
-        Noise? GetByRaspberryId(int id);
+        List<Noise> GetByRaspberryId(int id);
         Noise? AddNoise(Noise noise);
         Noise? DeleteNoise(int id);
         Noise? UpdateNoise(Noise noise);

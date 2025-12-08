@@ -69,16 +69,17 @@ namespace ClassLibrary.Services.Local
             return null;
         }
 
-        public Humidity? GetByRaspberryId(int id)
+        public List<Humidity> GetByRaspberryId(int id)
         {
+            List<Humidity> humiList = new List<Humidity>();
             foreach (var humidity in _humidities)
             {
                 if (humidity.RaspberryId == id)
                 {
-                    return humidity;
+                    humiList.Add(humidity);
                 }
             }
-            return null;
+            return humiList;
         }
 
         public Humidity? AddHumidity(Humidity humidity)

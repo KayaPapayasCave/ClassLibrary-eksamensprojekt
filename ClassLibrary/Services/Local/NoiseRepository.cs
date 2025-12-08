@@ -65,16 +65,17 @@ namespace ClassLibrary.Services.Local
             return null;
         }
 
-        public Noise? GetByRaspberryId(int id)
+        public List<Noise> GetByRaspberryId(int id)
         {
+            List<Noise> noisList = new List<Noise>();
             foreach (var noise in _noises)
             {
                 if (noise.RaspberryId == id)
                 {
-                    return noise;
+                    noisList.Add(noise);
                 }
             }
-            return null;
+            return noisList;
         }
 
         public Noise? AddNoise(Noise noise)

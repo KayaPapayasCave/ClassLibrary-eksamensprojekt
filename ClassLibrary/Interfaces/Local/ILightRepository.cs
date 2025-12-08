@@ -11,7 +11,7 @@ namespace ClassLibrary.Interfaces.Local
     {
         List<Light> GetAll();
         Light? GetById(int id);
-        Light? GetByRaspberryId(int id);
+        List<Light> GetByRaspberryId(int id);
         Light? AddLight(Light light);
         Light? DeleteLight(int id);
         Light? UpdateLight(Light light);

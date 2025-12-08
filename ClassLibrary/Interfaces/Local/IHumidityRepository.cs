@@ -11,7 +11,7 @@ namespace ClassLibrary.Interfaces.Local
     {
         List<Humidity> GetAll();
         Humidity? GetById(int id);
-        Humidity? GetByRaspberryId(int id);
+        List<Humidity> GetByRaspberryId(int id);
         Humidity? AddHumidity(Humidity humidity);
         Humidity? DeleteHumidity(int id);
         Humidity? UpdateHumidity(Humidity humidity);
