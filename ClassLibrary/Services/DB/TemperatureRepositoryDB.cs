@@ -10,9 +10,17 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary.Services.DB
 {
+    /// <summary>
+    /// Repository class for Temperature class items
+    /// </summary>
     public class TemperatureRepositoryDB : ITemperatureRepositoryDB
     {
         private readonly string _connectionString = Secret.ConnectionString;
+
+        /// <summary>
+        /// Function to fetch all Temperature class items, asynchronous
+        /// </summary>
+        /// <returns>List of Temperature class items</returns>
         public async Task<List<Temperature>> GetAllAsync()
         {
             List<Temperature> result = new List<Temperature>();
@@ -36,6 +44,11 @@ namespace ClassLibrary.Services.DB
             return result;
         }
 
+        /// <summary>
+        /// Function to fetch singular Temperature class items, asynchronous
+        /// </summary>
+        /// <param name="id">integer</param>
+        /// <returns>Temperature class item, possibility for null</returns>
         public async Task<Temperature?> GetByIdAsync(int id)
         {
             Temperature? temperature = null;
@@ -61,9 +74,14 @@ namespace ClassLibrary.Services.DB
             return temperature;
         }
 
-        public async Task<Temperature?> GetByRaspberryIdAsync(int raspberryId)
+        /// <summary>
+        /// Function to fetch all Temperature class items, with same Raspberry-Id, asynchronous
+        /// </summary>
+        /// <param name="raspberryId">integer</param>
+        /// <returns>List of Temperature class items</returns>
+        public async Task<List<Temperature>> GetByRaspberryIdAsync(int raspberryId)
         {
-            Temperature? temperature = null;
+            List<Temperature> result = new List<Temperature>();
 
             using SqlConnection connection = new SqlConnection(_connectionString);
             using SqlCommand cmd = new SqlCommand(
@@ -78,18 +96,23 @@ namespace ClassLibrary.Services.DB
             using SqlDataReader reader = await cmd.ExecuteReaderAsync();
             if (await reader.ReadAsync())
             {
-                temperature = new Temperature(
+                result.Add( new Temperature(
                     reader.GetInt32("Id"),
                     reader.GetInt32("RaspberryId"),
                     (double)reader.GetDecimal("Decibel"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
                     TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
-                );
+                ));
             }
 
-            return temperature;
+            return result;
         }
 
+        /// <summary>
+        /// Function to add singular Temperature class item, asynchronous
+        /// </summary>
+        /// <param name="temperature">Temperature class item</param>
+        /// <returns>Temperature class item, possible null</returns>
         public async Task<Temperature?> AddTemperatureAsync(Temperature temperature)
         {
             using SqlConnection connection = new SqlConnection(_connectionString);
@@ -109,6 +132,11 @@ namespace ClassLibrary.Services.DB
             return temperature;
         }
 
+        /// <summary>
+        /// Function to delete singular Temperature class item, asynchronous
+        /// </summary>
+        /// <param name="id">integer</param>
+        /// <returns>Temperature class item, possibility for null</returns>
         public async Task<Temperature?> DeleteTemperatureAsync(int id)
         {
             Temperature? temperature = await GetByIdAsync(id);
@@ -128,6 +156,10 @@ namespace ClassLibrary.Services.DB
 
             return null;
         }
+        /// <summary>
+        /// Function to delete multiple Temperature class items, asynchronous
+        /// </summary>
+        /// <returns>integer, number of affected rows</returns>
         public async Task<int> DeleteOlderThan90DaysAsync()
         {
             using SqlConnection connection = new SqlConnection(_connectionString);
