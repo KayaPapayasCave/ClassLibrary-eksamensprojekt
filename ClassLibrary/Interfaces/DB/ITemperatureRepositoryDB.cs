@@ -3,7 +3,7 @@
 namespace ClassLibrary.Interfaces.DB
 {
     /// <summary>
-    /// Interface class for Temperature Repository classes
+    /// Interface class for Temperature Database Repository classes
     /// </summary>
     public interface ITemperatureRepositoryDB
     {

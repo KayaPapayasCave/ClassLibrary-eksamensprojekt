@@ -3,7 +3,7 @@
 namespace ClassLibrary.Interfaces.DB
 {
     /// <summary>
-    /// Interface class for Noise Repository classes
+    /// Interface class for Noise Database Repository classes
     /// </summary>
     public interface INoiseRepositoryDB
     {

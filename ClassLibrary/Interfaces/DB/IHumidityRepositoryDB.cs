@@ -3,7 +3,7 @@
 namespace ClassLibrary.Interfaces.DB
 {
     /// <summary>
-    /// Interface class for Humidity Repository classes
+    /// Interface class for Humidity Database Repository classes
     /// </summary>
     public interface IHumidityRepositoryDB
     {

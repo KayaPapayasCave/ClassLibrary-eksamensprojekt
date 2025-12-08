@@ -3,7 +3,7 @@
 namespace ClassLibrary.Interfaces.DB
 {
     /// <summary>
-    /// Interface class for Light Repository classes
+    /// Interface class for Light Database Repository classes
     /// </summary>
     public interface ILightRepositoryDB
     {
