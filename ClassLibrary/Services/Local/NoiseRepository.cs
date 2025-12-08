@@ -3,9 +3,19 @@ using ClassLibrary.Models;
 
 namespace ClassLibrary.Services.Local
 {
+    /// <summary>
+    /// A repository class for managing Noise data.
+    /// </summary>
     public class NoiseRepository : INoiseRepository
     {
+        /// <summary>
+        /// A private list to store Noise objects.
+        /// </summary>
         private List<Noise> _noises;
+
+        /// <summary>
+        /// An empty constructor that initializes the NoiseRepository with some sample data.
+        /// </summary>
         public NoiseRepository()
         {
             DateTime now = DateTime.Now;
@@ -48,11 +58,17 @@ namespace ClassLibrary.Services.Local
             };
         }
 
+        /// <summary>
+        /// A method to get all Noise objects.
+        /// </summary>
         public List<Noise> GetAll()
         {
             return _noises;
         }
 
+        /// <summary>
+        /// A method to get a Noise object by its ID.
+        /// </summary>
         public Noise? GetById(int id)
         {
             foreach (var noise in _noises)
@@ -65,6 +81,9 @@ namespace ClassLibrary.Services.Local
             return null;
         }
 
+        /// <summary>
+        /// A method to get Noise objects by Raspberry ID, and returns a list.
+        /// </summary>
         public List<Noise> GetByRaspberryId(int id)
         {
             List<Noise> noisList = new List<Noise>();
@@ -78,12 +97,18 @@ namespace ClassLibrary.Services.Local
             return noisList;
         }
 
+        /// <summary>
+        /// A method to add a new Noise object.
+        /// </summary>
         public Noise? AddNoise(Noise noise)
         {
             _noises.Add(noise);
             return noise;
         }
 
+        /// <summary>
+        /// A method to delete a Noise object by its ID.
+        /// </summary>
         public Noise? DeleteNoise(int id)
         {
             Noise? noise = GetById(id);
@@ -92,6 +117,9 @@ namespace ClassLibrary.Services.Local
             return noise;
         }
 
+        /// <summary>
+        /// A method to update an existing Noise object.
+        /// </summary>
         public Noise? UpdateNoise(Noise noise)
         {
             Noise? oldNoise = GetById(noise.Id);
