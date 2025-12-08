@@ -54,7 +54,7 @@ namespace ClassLibrary.Services.DB
             Temperature? temperature = null;
 
             using SqlConnection connection = new SqlConnection(_connectionString);
-            using SqlCommand cmd = new SqlCommand("SELECT Id, RaspberryId, Celsius, Date, Time FROM Noise WHERE Id = @Id", connection);
+            using SqlCommand cmd = new SqlCommand("SELECT Id, RaspberryId, Celsius, Date, Time FROM Temperature WHERE Id = @Id", connection);
 
             cmd.Parameters.AddWithValue("@Id", id);
 
