@@ -8,9 +8,19 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary.Services.Local
 {
+    /// <summary>
+    /// A repository class for managing Light data.
+    /// </summary>
     public class LightRepository : ILightRepository
     {
+        /// <summary>
+        /// A private list to store Light objects.
+        /// </summary>
         private List<Light> _lights;
+
+        /// <summary>
+        /// An empty constructor that initializes the LightRepository with some sample data.
+        /// </summary>
         public LightRepository()
         {
             DateTime now = DateTime.Now;
@@ -52,11 +62,17 @@ namespace ClassLibrary.Services.Local
                 };
         }
 
+        /// <summary>
+        /// A method to get all Light objects.
+        /// </summary>
         public List<Light> GetAll()
         {
             return _lights;
         }
 
+        /// <summary>
+        /// A method to get a Light object by its ID.
+        /// </summary>
         public Light? GetById(int id)
         {
             foreach (var light in _lights)
@@ -69,6 +85,9 @@ namespace ClassLibrary.Services.Local
             return null;
         }
 
+        /// <summary>
+        /// A method to get Light objects by Raspberry ID, and return a list.
+        /// </summary>
         public List<Light> GetByRaspberryId(int id)
         {
             List<Light> lighList = new List<Light>();
@@ -82,12 +101,18 @@ namespace ClassLibrary.Services.Local
             return lighList;
         }
 
+        /// <summary>
+        /// A method to add a new Light object.
+        /// </summary>
         public Light? AddLight(Light light)
         {
             _lights.Add(light);
             return light;
         }
 
+        /// <summary>
+        /// A method to delete a Light object by its ID.
+        /// </summary>
         public Light? DeleteLight(int id)
         {
             Light? light = GetById(id);
@@ -96,6 +121,9 @@ namespace ClassLibrary.Services.Local
             return light;
         }
 
+        /// <summary>
+        /// A method to update an existing Light object.
+        /// </summary>
         public Light? UpdateLight(Light light)
         {
             Light? oldLight = GetById(light.Id);

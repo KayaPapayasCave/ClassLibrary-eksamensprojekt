@@ -8,9 +8,19 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary.Services.Local
 {
+    /// <summary>
+    /// A repository class for managing Temperature data.
+    /// </summary>
     public class TemperatureRepository : ITemperatureRepository
     {
+        /// <summary>
+        /// A private list to store Temperature objects.
+        /// </summary>
         private List<Temperature> _temperatures;
+
+        /// <summary>
+        /// An empty constructor that initializes the TemperatureRepository with some sample data.
+        /// </summary>
         public TemperatureRepository()
         {
             DateTime now = DateTime.Now;
@@ -52,11 +62,17 @@ namespace ClassLibrary.Services.Local
             };
         }
 
+        /// <summary>
+        /// A method to get all Temperature objects.
+        /// </summary>
         public List<Temperature> GetAll()
         {
             return _temperatures;
         }
 
+        /// <summary>
+        /// A method to get a Temperature object by its Id.
+        /// </summary>
         public Temperature? GetById(int id)
         {
             foreach (var temperature in _temperatures)
@@ -69,6 +85,9 @@ namespace ClassLibrary.Services.Local
             return null;
         }
 
+        /// <summary>
+        /// A method to get Temperature objects by RaspberryId, and returns a list.
+        /// </summary>
         public List<Temperature> GetByRaspberryId(int id)
         {
             List<Temperature> tempList = new List<Temperature>();
@@ -82,12 +101,18 @@ namespace ClassLibrary.Services.Local
             return tempList;
         }
 
+        /// <summary>
+        /// A method to add a new Temperature object.
+        /// </summary>
         public Temperature? AddTemperature(Temperature temperature)
         {
             _temperatures.Add(temperature);
             return temperature;
         }
 
+        /// <summary>
+        /// A method to delete a Temperature object by its Id.
+        /// </summary>
         public Temperature? DeleteTemperature(int id)
         {
             Temperature? temperature = GetById(id);
@@ -96,6 +121,9 @@ namespace ClassLibrary.Services.Local
             return temperature;
         }
 
+        /// <summary>
+        /// A method to update an existing Temperature object.
+        /// </summary>
         public Temperature? UpdateTemperature(Temperature temperature)
         {
             Temperature? oldTemperature = GetById(temperature.Id);

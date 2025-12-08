@@ -36,7 +36,7 @@ namespace ClassLibrary.Services.DB
                 result.Add(new Temperature(
                     reader.GetInt32("Id"),
                     reader.GetInt32("RaspberryId"),
-                    (double)reader.GetDecimal("Decibel"),
+                    (double)reader.GetDecimal("Celsius"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
                     TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
                 ));
@@ -54,7 +54,7 @@ namespace ClassLibrary.Services.DB
             Temperature? temperature = null;
 
             using SqlConnection connection = new SqlConnection(_connectionString);
-            using SqlCommand cmd = new SqlCommand("SELECT Id, RaspberryId, Celsius, Date, Time FROM Noise WHERE Id = @Id", connection);
+            using SqlCommand cmd = new SqlCommand("SELECT Id, RaspberryId, Celsius, Date, Time FROM Temperature WHERE Id = @Id", connection);
 
             cmd.Parameters.AddWithValue("@Id", id);
 
@@ -66,7 +66,7 @@ namespace ClassLibrary.Services.DB
                 temperature = new Temperature(
                     reader.GetInt32("Id"),
                     reader.GetInt32("RaspberryId"),
-                    (double)reader.GetDecimal("Decibel"),
+                    (double)reader.GetDecimal("Celsius"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
                     TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
                 );
@@ -99,7 +99,7 @@ namespace ClassLibrary.Services.DB
                 result.Add( new Temperature(
                     reader.GetInt32("Id"),
                     reader.GetInt32("RaspberryId"),
-                    (double)reader.GetDecimal("Decibel"),
+                    (double)reader.GetDecimal("Celsius"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
                     TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
                 ));
@@ -116,12 +116,12 @@ namespace ClassLibrary.Services.DB
         public async Task<Temperature?> AddTemperatureAsync(Temperature temperature)
         {
             using SqlConnection connection = new SqlConnection(_connectionString);
-            using SqlCommand cmd = new SqlCommand("INSERT INTO Temperature (RaspberryId, Decibel, Date, Time) OUTPUT INSERTED.Id VALUES (@RaspberryId, @Decibel, @Date, @Time)", connection);
+            using SqlCommand cmd = new SqlCommand("INSERT INTO Temperature (RaspberryId, Celcius, Date, Time) OUTPUT INSERTED.Id VALUES (@RaspberryId, @Celsius, @Date, @Time)", connection);
 
             await connection.OpenAsync();
 
             cmd.Parameters.AddWithValue("@RaspberryId", temperature.RaspberryId);
-            cmd.Parameters.AddWithValue("@Decibel", temperature.Celsius);
+            cmd.Parameters.AddWithValue("@Celsius", temperature.Celsius);
             cmd.Parameters.AddWithValue("@Date", temperature.Date);
             cmd.Parameters.AddWithValue("@Time", temperature.Time);
 

@@ -8,9 +8,19 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary.Services.Local
 {
+    /// <summary>
+    /// A repository class for managing Humidity data.
+    /// </summary>
     public class HumidityRepository : IHumidityRepository
     {
+        /// <summary>
+        /// A private list to store Humidity objects.
+        /// </summary>
         private List<Humidity> _humidities;
+
+        /// <summary>
+        /// An empty constructor that initializes the HumidityRepository with some sample data.
+        /// </summary>
         public HumidityRepository()
         {
             DateTime now = DateTime.Now;
@@ -52,11 +62,17 @@ namespace ClassLibrary.Services.Local
                 };
         }
 
+        /// <summary>
+        /// Retrieves all Humidity records.
+        /// </summary>
         public List<Humidity> GetAll()
         {
             return _humidities;
         }
 
+        /// <summary>
+        /// Retrieves a Humidity record by its unique identifier.
+        /// </summary>
         public Humidity? GetById(int id)
         {
             foreach (var humidity in _humidities)
@@ -69,6 +85,9 @@ namespace ClassLibrary.Services.Local
             return null;
         }
 
+        /// <summary>
+        /// Retrieves Humidity records by RaspberryId, returns a list.
+        /// </summary>
         public List<Humidity> GetByRaspberryId(int id)
         {
             List<Humidity> humiList = new List<Humidity>();
@@ -82,12 +101,18 @@ namespace ClassLibrary.Services.Local
             return humiList;
         }
 
+        /// <summary>
+        /// Adds a new Humidity record.
+        /// </summary>
         public Humidity? AddHumidity(Humidity humidity)
         {
             _humidities.Add(humidity);
             return humidity;
         }
 
+        /// <summary>
+        /// Deletes a Humidity record by its unique identifier.
+        /// </summary>
         public Humidity? DeleteHumidity(int id)
         {
             Humidity? humidity = GetById(id);
@@ -96,6 +121,9 @@ namespace ClassLibrary.Services.Local
             return humidity;
         }
 
+        /// <summary>
+        /// Updates an existing Humidity record.
+        /// </summary>
         public Humidity? UpdateHumidity(Humidity humidity)
         {
             Humidity? oldHumidity = GetById(humidity.Id);
