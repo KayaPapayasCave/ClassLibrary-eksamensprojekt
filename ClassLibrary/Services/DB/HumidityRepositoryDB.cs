@@ -107,9 +107,9 @@ namespace ClassLibrary.Services.DB
         /// <remarks>The method queries the database for the most recent humidity record associated with
         /// the given Raspberry Pi device, ordered by date and time in descending order. If no record exists for the
         /// specified RaspberryId, the method returns a null value.</remarks>
-        public async Task<Humidity?> GetByRaspberryIdAsync(int raspberryId)
+        public async Task<List<Humidity>> GetByRaspberryIdAsync(int raspberryId)
         {
-            Humidity? humidity = null;
+            List<Humidity> result = new List<Humidity>();
 
             using SqlConnection connection = new SqlConnection(_connectionString);
             using SqlCommand cmd = new SqlCommand(
@@ -124,16 +124,16 @@ namespace ClassLibrary.Services.DB
             using SqlDataReader reader = await cmd.ExecuteReaderAsync();
             if (await reader.ReadAsync())
             {
-                humidity = new Humidity(
+                result.Add( new Humidity(
                     reader.GetInt32("Id"),
                     reader.GetInt32("RaspberryId"),
                     (double)reader.GetDecimal("HumidityPercent"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
                     TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
-                );
+                ));
             }
 
-            return humidity;
+            return result;
         }
 
         /// <summary>

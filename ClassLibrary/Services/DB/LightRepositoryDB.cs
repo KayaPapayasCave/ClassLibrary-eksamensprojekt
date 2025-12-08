@@ -87,9 +87,10 @@ namespace ClassLibrary.Services.DB
         /// <returns> The method queries the database for the most recent light record associated with
         /// the given Raspberry Pi device, ordered by date and time in descending order. If no record exists for the
         /// specified RaspberryId, the method returns a null value.</returns>
-        public async Task<Light?> GetByRaspberryIdAsync(int raspberryId)
+        public async Task<List<Light>> GetByRaspberryIdAsync(int raspberryId)
         {
-            Light? light = null;
+            List<Light> result = new List<Light>();
+
 
             using SqlConnection connection = new SqlConnection(_connectionString);
             using SqlCommand cmd = new SqlCommand(
@@ -104,16 +105,16 @@ namespace ClassLibrary.Services.DB
             using SqlDataReader reader = await cmd.ExecuteReaderAsync();
             if (await reader.ReadAsync())
             {
-                light = new Light(
+                result.Add( new Light(
                     reader.GetInt32("Id"),
                     reader.GetInt32("RaspberryId"),
                     (double)reader.GetDecimal("Lumen"),
                     DateOnly.FromDateTime(reader.GetDateTime("Date")),
                     TimeOnly.FromTimeSpan((TimeSpan)reader["Time"])
-                );
+                ));
             }
 
-            return light;
+            return result;
         }
 
         /// <summary>
