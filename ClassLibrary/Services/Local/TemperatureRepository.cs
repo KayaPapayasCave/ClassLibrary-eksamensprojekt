@@ -69,16 +69,17 @@ namespace ClassLibrary.Services.Local
             return null;
         }
 
-        public Temperature? GetByRaspberryId(int id)
+        public List<Temperature> GetByRaspberryId(int id)
         {
+            List<Temperature> tempList = new List<Temperature>();
             foreach (var temperature in _temperatures)
             {
                 if (temperature.RaspberryId == id)
                 {
-                    return temperature;
+                    tempList.Add(temperature);
                 }
             }
-            return null;
+            return tempList;
         }
 
         public Temperature? AddTemperature(Temperature temperature)

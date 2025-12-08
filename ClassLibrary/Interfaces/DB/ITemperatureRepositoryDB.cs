@@ -21,7 +21,7 @@ namespace ClassLibrary.Interfaces.DB
         Task<Temperature?> GetByIdAsync(int id);
 
         /// <summary>
-        /// Function to fetch list of Temperature class items, by Raspberry-id, asynchronous
+        /// Function to fetch list of Temperature class items, by Raspberry-Id, asynchronous
         /// </summary>
         /// <param name="id">integer</param>
         /// <returns>List of Temperature class items</returns>

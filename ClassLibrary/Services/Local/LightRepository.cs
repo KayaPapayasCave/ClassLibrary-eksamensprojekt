@@ -69,16 +69,17 @@ namespace ClassLibrary.Services.Local
             return null;
         }
 
-        public Light? GetByRaspberryId(int id)
+        public List<Light> GetByRaspberryId(int id)
         {
+            List<Light> lighList = new List<Light>();
             foreach (var light in _lights)
             {
                 if (light.RaspberryId == id)
                 {
-                    return light;
+                    lighList.Add(light);
                 }
             }
-            return null;
+            return lighList;
         }
 
         public Light? AddLight(Light light)
