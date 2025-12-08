@@ -6,7 +6,7 @@ namespace ClassLibrary.Interfaces.DB
     {
         Task<List<Temperature>> GetAllAsync();
         Task<Temperature?> GetByIdAsync(int id);
-        Task<Temperature?> GetByRaspberryIdAsync(int id);
+        Task<List<Temperature>> GetByRaspberryIdAsync(int id);
         Task<Temperature?> AddTemperatureAsync(Temperature temperature);
         Task<Temperature?> DeleteTemperatureAsync(int id);
         Task<int> DeleteOlderThan90DaysAsync();

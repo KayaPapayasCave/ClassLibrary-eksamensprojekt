@@ -6,7 +6,7 @@ namespace ClassLibrary.Interfaces.DB
     {
         Task<List<Noise>> GetAllAsync();
         Task<Noise?> GetByIdAsync(int id);
-        Task<Noise?> GetByRaspberryIdAsync(int id);
+        Task<List<Noise>> GetByRaspberryIdAsync(int id);
         Task<Noise?> AddNoiseAsync(Noise noise);
         Task<Noise?> DeleteNoiseAsync(int id);
         Task<int> DeleteOlderThan90DaysAsync();
