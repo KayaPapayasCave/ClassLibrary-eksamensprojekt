@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ClassLibrary.Models
 {
     /// <summary>
-    /// Represents a humidity measurement recorded by a specific Raspberry Pi device at a given date and time.
+    /// A humity model class representing humidity data.
     /// </summary>
     public class Humidity
     {
@@ -49,7 +49,7 @@ namespace ClassLibrary.Models
         }
 
         /// <summary>
-        /// a emty constructor for Humidity class.
+        /// An empty constructor for Humidity class.
         /// </summary>
         public Humidity()
         {
