@@ -40,10 +40,10 @@ public class LightRepositoryTests
         ILightRepository repo = new LightRepository();
 
         // Act
-        Light? light = repo.GetByRaspberryId(1);
+        List<Light> light = repo.GetByRaspberryId(1);
 
         // Assert
-        Assert.IsNotNull(light);
+        Assert.AreNotEqual(0, light.Count);
     }
 
     [TestMethod]

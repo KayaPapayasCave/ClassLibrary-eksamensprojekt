@@ -75,11 +75,12 @@ namespace RepositoryTests
             try
             {
                 // Act
-                Light? light = await repo.GetByRaspberryIdAsync(added!.RaspberryId);
+                List<Light> lightList = await repo.GetByRaspberryIdAsync(added!.RaspberryId);
 
                 // Assert
-                Assert.IsNotNull(light, $"Light with RaspberryId={added.RaspberryId} should exist");
-                Assert.AreEqual(added.RaspberryId, light!.RaspberryId);
+                Assert.IsNotNull(lightList, $"Light with RaspberryId={added.RaspberryId} should exist");
+                foreach(Light light in lightList)
+                    Assert.AreEqual(added.RaspberryId, light!.RaspberryId);
             }
             finally
             {
