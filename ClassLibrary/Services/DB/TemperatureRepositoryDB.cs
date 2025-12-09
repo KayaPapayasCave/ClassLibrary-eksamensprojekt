@@ -85,7 +85,7 @@ namespace ClassLibrary.Services.DB
 
             using SqlConnection connection = new SqlConnection(_connectionString);
             using SqlCommand cmd = new SqlCommand(
-                "SELECT Id, RaspberryId, Celcius, Date, Time FROM Temperature WHERE RaspberryId = @RaspberryId",
+                "SELECT Id, RaspberryId, Celsius, Date, Time FROM Temperature WHERE RaspberryId = @RaspberryId",
                 connection
             );
 
@@ -116,7 +116,7 @@ namespace ClassLibrary.Services.DB
         public async Task<Temperature?> AddTemperatureAsync(Temperature temperature)
         {
             using SqlConnection connection = new SqlConnection(_connectionString);
-            using SqlCommand cmd = new SqlCommand("INSERT INTO Temperature (RaspberryId, Celcius, Date, Time) OUTPUT INSERTED.Id VALUES (@RaspberryId, @Celsius, @Date, @Time)", connection);
+            using SqlCommand cmd = new SqlCommand("INSERT INTO Temperature (RaspberryId, Celsius, Date, Time) OUTPUT INSERTED.Id VALUES (@RaspberryId, @Celsius, @Date, @Time)", connection);
 
             await connection.OpenAsync();
 
