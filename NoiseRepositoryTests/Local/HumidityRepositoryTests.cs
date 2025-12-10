@@ -62,12 +62,26 @@ public class HumidityRepositoryTests
     [TestMethod]
     public void DeleteHumidity_Success()
     {
+        // Arrange
+        IHumidityRepository repo = new HumidityRepository();
 
+        // Act
+        Humidity? humidity = repo.DeleteHumidity(0);
+
+        // Assert
+        Assert.IsNotNull(humidity);
     }
 
     [TestMethod]
     public void UpdateHumidity_Success()
     {
+        // Arrange
+        IHumidityRepository repo = new HumidityRepository();
 
+        // Act
+        Humidity? humidity = repo.UpdateHumidity(new Humidity());
+
+        // Assert
+        Assert.IsNotNull(humidity);
     }
 }

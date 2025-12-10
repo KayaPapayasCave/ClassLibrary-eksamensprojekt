@@ -35,6 +35,19 @@ namespace RepositoryTests.Local
         }
 
         [TestMethod]
+        public void GetNoisesByRaspberryPiId()
+        {
+            // Arrange
+            INoiseRepository repo = new NoiseRepository();
+
+            // Act
+            List<Noise> noises = repo.GetByRaspberryId(1);
+
+            // Assert
+            Assert.AreNotEqual(0, noises.Count);
+        }
+
+        [TestMethod]
         public void AddNoise_Success()
         {
             // Arrange
